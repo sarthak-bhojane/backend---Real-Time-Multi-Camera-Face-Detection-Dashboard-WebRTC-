@@ -17,13 +17,26 @@ const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret';
 const INTERNAL_SECRET = process.env.INTERNAL_SECRET || JWT_SECRET;
 
 // Postgres pool - adjust credentials if needed (no .env)
+// const pool = new Pool({
+//   user: process.env.PGUSER || 'postgres',
+//   host: process.env.PGHOST || 'localhost',
+//   database: process.env.PGDATABASE || 'webrtc_dashboard',
+//   password: process.env.PGPASSWORD || 'Sarthak@2002',
+//   port: Number(process.env.PGPORT || 5432),
+// });
+
+
 const pool = new Pool({
-  user: process.env.PGUSER || 'postgres',
-  host: process.env.PGHOST || 'localhost',
-  database: process.env.PGDATABASE || 'webrtc_dashboard',
-  password: process.env.PGPASSWORD || 'Sarthak@2002',
-  port: Number(process.env.PGPORT || 5432),
+  user: "postgres",
+  host: process.env.RAILWAY_TCP_PROXY_DOMAIN || "switchback.proxy.rlwy.net",
+  database: "railway",
+  password: "zlzDsSaoDjxCZDKViaCHmepaokvEPuMS",
+  port: process.env.RAILWAY_TCP_PROXY_PORT || 53992, // Replace with your actual proxy port
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
 
 // create streams folder for HLS outputs
 const STREAMS_DIR = path.join(__dirname, 'streams');
